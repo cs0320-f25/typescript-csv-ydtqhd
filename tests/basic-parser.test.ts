@@ -20,3 +20,38 @@ test("parseCSV yields only arrays", async () => {
         expect(Array.isArray(row)).toBe(true);
     }
 });
+
+test("parseCSV yields comma-containing fields", async () => {
+    const expected = [
+        ["quote", "speaker", "location", "date"],
+        ["I have a dream.,Martin Luther King Jr.", "Washington, D.C.", "1963-08-28"],
+        ["That's one small step for man, one giant leap for mankind.", "Neil Armstrong", "Moon (Apollo 11)", "1969-07-20"],
+        ["Mr. Gorbachev, tear down this wall!", "Ronald Reagan", "Berlin", "1987-06-12"]
+    ];
+    const results = await parseCSV(path.join(__dirname, "../data/quotes w commas.csv"));
+    expect(results).toEqual(expected);
+});
+
+test("parseCSV yields empty fields", async () => {
+    const expected = [
+        ["quote", "speaker", "location", "date"],
+        ["The pen is mightier than the sword.", "Edward Bulwer-Lytton", "", ""],
+        ["You can't judge a book by its cover", "", "", ""]
+    ];
+    const results = await parseCSV(path.join(__dirname, "../data/quotes w unknown.csv"));
+    expect(results).toEqual(expected);
+});
+
+test("parseCSV escapes double quotes inside comma-containing fields", async () => {
+    const expected = [
+        ["quote", "speaker", "location", "date"],
+        ["I have a dream.", "Martin Luther King Jr.", "Washington, D.C.", "1963-08-28"],
+        ["That’s one small step for man, one giant leap for mankind.", "Neil Armstrong", "Moon (Apollo 11)", "1969-07-20"],
+        ["Mr. Gorbachev, tear down this wall!", "Ronald Reagan", "Berlin", "1987-06-12"],
+        ["The pen is mightier than the sword.", "Edward Bulwer-Lytton", "", ""],
+        ["You can't judge a book by its cover", "", "", ""],
+        ['"If I have seen further, it is by standing on the shoulders of giants."', "Isaac Newton", "", ""]
+    ];
+    const results = await parseCSV(path.join(__dirname, "../data/quotes w double quotes.csv"));
+    expect(results).toEqual(expected);
+});
