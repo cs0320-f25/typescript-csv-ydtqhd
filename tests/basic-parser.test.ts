@@ -1,5 +1,6 @@
 import { parseCSV } from "../src/basic-parser";
 import * as path from "path";
+import * as z from "zod";
 
 const PEOPLE_CSV_PATH = path.join(__dirname, "../data/people.csv");
 
@@ -65,5 +66,23 @@ test("parseCSV escapes double quotes inside comma-containing fields", async () =
         ['"If I have seen further, it is by standing on the shoulders of giants."', "Isaac Newton", "", ""]
     ];
     const results = await parseCSV(path.join(__dirname, "../data/quotes w double quotes.csv"));
+    expect(results).toEqual(expected);
+});
+
+test("parseCSV parses using given zod schema", async () => {
+    const Quote = z.tuple([z.string(), z.string(), z.string(), z.iso.date()])
+        .transform(tup => ({
+            quote: tup[0],
+            speaker: tup[1],
+            location: tup[2],
+            date: tup[3]
+        }));
+
+    const expected = [
+        Quote.parse(["The only thing we have to fear is fear itself","Franklin D Roosevelt","Washington","1933-03-04"]),
+        Quote.parse(["Knowledge is power","Francis Bacon","London","1597-01-01"])
+    ];
+    
+    const results = await parseCSV(path.join(__dirname, "../data/quotes.csv"), Quote, true);
     expect(results).toEqual(expected);
 });
