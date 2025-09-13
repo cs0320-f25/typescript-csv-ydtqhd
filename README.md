@@ -51,9 +51,31 @@
 
 ### Design Choices
 
+- I use an optional boolean parameter for skipping the column headers row.
+- I use an optional Zod schema parameter for parsing using zod schema.
+- Parsing malformed or invalid csv files throws error instead of trying to fix the document.
+
 ### 1340 Supplement
 
+To represent JSON-encoded instances of stack with a Zod schema. Assuming the stack object looks like:
+```typescript
+{
+    array: [....]       // stack implemented using (array)
+    length: ....        // (number)
+}
+```
 
+Then the Zod schema to would look like:
+```typescript
+function stackSchema<T extends z.ZodTypeAny>(elemType: T) {
+    return z.object({ 
+        array: z.array(elemType),
+        length: z.int().nonnegative()
+    });
+}
+```
+
+I have not tested this schema using actual code, so I am not sure if `z.int()` supports `.nonnegative()` because it only appears for validating `z.number()` and `z.bigint()`.
 
 - #### 1. Correctness
 
