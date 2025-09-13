@@ -17,6 +17,7 @@ import * as z from "zod";
  * @param schema The Zod schema used on parsing data rows.
  * @param hasHeader Omit the first row if provided with `true`.
  * @returns a "promise" to produce a 2-d array of cell values
+ * @throws `Error("Invalid CSV: ....")` Errors on files that are malformed.
  */
 export async function parseCSV<T>(path: string, schema?: z.ZodType<T>, hasHeader?: boolean): Promise<(string[] | T)[]> {
     // This initial block of code reads from a file in Node.js. The "rl"
