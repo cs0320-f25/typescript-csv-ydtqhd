@@ -111,7 +111,7 @@ No major bugs. Failing to handle mutiline data rows, comma-containing data rows,
 - Eddie Lin: `hlin82`
 
 #### Collaborators (cslogins of anyone you worked with on this project and/or generative AI):
-- ChatGPT (5): Generated textual content for the test CSV files `quotes[....].csv` and `[....] double quote.csv`. Instructions were provided on the required column headers and the symbols to include in the main content fields.
+- ChatGPT (5): Generated textual content for the test CSV files `quotes[....].csv` and `[....] double quote.csv`. Instructions were provided on the required column headers and the symbols to include in the main content fields. Chat history can be found at `./ChatHistory.md`.
 
 #### Total estimated time it took to complete project: approx. 8 hours
 #### Link to GitHub Repo: https://github.com/cs0320-f25/typescript-csv-ydtqhd
