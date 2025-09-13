@@ -59,14 +59,37 @@
 
 ### 1340 Supplement
 
+
+
 - #### 1. Correctness
+
+A CSV parser is correct if it can parse any file that follows the CSV standard (i.e. RFC 4180). It should seperate data fields by comma, behave as expected on quoted fields (e.g. multiline, escaped double quote, comma inside data), and handle different new line styles. If the provided file is malformed or invalid, the parser should raise an error to inform the caller.
 
 - #### 2. Random, On-Demand Generation
 
+If I were proviede with this random CSV generator function, I can use it to generate CSV files on the fly during testing instead of manually creating csv files for testing. I would use a for loop to have multiple trials using the generator function to make the testing coverage more robust. If the function allows specifying the content of the csv in some way (e.g. mutiline data rows, comma-containing data rows, and double-quote-containing data rows), I would give specifications to generate tests for different csv rules the parser needs to support.
+
 - #### 3. Overall experience, Bugs encountered and resolved
-#### Errors/Bugs:
+
+It surprised me that `(string[] | T)[]` and `string[][] | T[]` is two different types in TypeScript. I did not encounter any bug when implementing zod schema support. I think I managed to avoid them by thoroughly following instructions provided in the sprint handout doc, slides in class, and documentation from Zod. Apparently, there are failed tests as the current implementation does not handle double quotes as expected. But this is not the concern of this sprint, I did not work on fixing this bug.
+
+#### Errors/Bugs: 
+
+No major bugs. Failing to handle mutiline data rows, comma-containing data rows, and double-quote-containing data rows are omitted.
+
 #### Tests:
+
+- Tests using `quote w [....].csv` are used to test special rules of csv files.
+- Files under `malformed` are used to test error handling on malformed csv files. The corresponding jest unit tests are unimplemented for now.
+- Test using `quotes.csv` are used to test Zod schema support feature.
+
 #### How To…
+
+- Build and run: `npm install` then `npm run run`
+
+    You can refer to `.nvmrc` for the node version used (If you have `nvm` installed, you can use `nvm use`).
+
+- Test: `npm run test`
 
 #### Team members and contributions (include cs logins):
 - Eddie Lin: `hlin82`
