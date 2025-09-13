@@ -11,12 +11,6 @@
 
 - #### Step 2: Use an LLM to help expand your perspective.
 
-    Using the given prompt with ChatGPT, its response covered all of my ideas.
-
-    Additionally, it suggested considerations such as text file encoding and byte order marks, skipping empty lines, configurable dialects (e.g., delimiters and escape symbols), handling variable row lengths, and controlling how cell values are converted from raw text (e.g., as strings or based on a schema). It also pointed out newline style differences, error handling strategies, and distinctions between ESM vs. CJS imports. It also listed a good amount of test and edge cases. Beyond parsing, it gave suggestions on developer experience, security, and documentation. These may be outside the scope of this project.
-
-    For the first variation, I modified the prompt to ask it to explain domain-specific terms and abbreviations. The response included more examples and detail, but the overall content remained similar. For the second variation, I specified that the project should remain light, simple, and manageable as a class assignment. It emphasized core areas while leaving out advanced or production level concerns. The response also organized features into must-have's and nice-to-have's, which made prioritization clearer. The examples were more practical, and the language was simpler and easier to follow.
-
 - #### Step 3: propose enhancements in your project README ﬁle:
 
     Include a list of the top 4 enhancements or edge cases you think are most valuable to explore in the next week’s sprint. Label them clearly by category (extensibility vs. functionality), and include whether they came from you, the LLM, or both. Describe these using the User Story format—see below for a definition. 
