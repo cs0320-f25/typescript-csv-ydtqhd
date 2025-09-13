@@ -1,3 +1,4 @@
+import { error } from "console";
 import * as fs from "fs";
 import * as readline from "readline";
 import * as z from "zod";
@@ -28,6 +29,7 @@ export async function parseCSV<T>(path: string, schema?: z.ZodType<T>, hasHeader
 
     // Create an empty array to hold the results
     let result = []
+    let rowLength: number | undefined = undefined;
 
     // We add the "await" here because file I/O is asynchronous. 
     // We need to force TypeScript to _wait_ for a row before moving on. 
@@ -37,6 +39,12 @@ export async function parseCSV<T>(path: string, schema?: z.ZodType<T>, hasHeader
         if (hasHeader) {
             hasHeader = false;
             continue;
+        }
+        // check & update row length
+        if (!rowLength) {
+            rowLength = values.length;
+        } else if (rowLength !== values.length) {
+            throw new Error("Invalid CSV: Row length mismatch.");
         }
 
         if (schema) {
